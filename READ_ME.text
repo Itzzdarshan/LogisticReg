@@ -1,0 +1,35 @@
+# 🪂 PUBG Scout Terminal: Tactical Combatant Classification
+
+## 🚀 Business Problem
+In the competitive e-sports landscape, identifying "Pro-level" talent from massive telemetry datasets is a high-stakes challenge. This project implements a **Logistic Regression** classification engine to automate the scouting process, transforming raw match statistics into a binary "Pro" vs. "Amateur" verdict with a calculated confidence score.
+
+## 🧠 Technical Architecture
+The system utilizes a supervised learning pipeline designed for high-speed inference on combat telemetry data.
+
+### 1. High-Dimensional Feature Engineering
+The model processes an 8-dimensional feature vector to capture a holistic player profile:
+* **Combat:** `Kills`, `Damage`, `Headshots` (Offensive efficiency)
+* **Support:** `Revives`, `Heals` (Team utility)
+* **Movement/Survival:** `Distance`, `Boosts` (Map control)
+* **Looting:** `Weapons` (Resource management)
+
+### 2. Engineering Decisions: Feature Scaling
+* **Challenge:** Feature magnitudes vary significantly (e.g., `Distance` is measured in thousands, while `Revives` are single digits).
+* **Solution:** Implemented `StandardScaler` (Z-score normalization).
+* **Justification:** Logistic Regression uses a sigmoid function sensitive to feature scale. Without normalization, high-magnitude features like `Distance` would disproportionately dominate the model's weights, leading to biased classifications.
+
+
+## 🛠️ Tech Stack & Tooling
+* **Language:** Python 3.14
+* **ML Engine:** Scikit-Learn (Logistic Regression)
+* **Data Science:** Pandas, NumPy
+* **Deployment:** Streamlit (Custom Tactical UI with CSS Injection)
+* **Serialization:** Joblib (Binary Model/Scaler Persistence)
+
+## 📁 Repository Structure
+```text
+├── app.py              # Tactical Scout Dashboard (Streamlit Frontend)
+├── train_model.py      # Automated 8-feature training pipeline
+├── model.pkl           # Serialized Logistic Regression "Brain"
+├── scaler.pkl          # Serialized Normalization Parameters
+└── pubg_pro_terminal.csv # Historical player performance dataset
